@@ -1,0 +1,28 @@
+What needed to find pos in go board
+-Assume that the whole image is go board, nothing else is added
+-Know space in pixels between crosses
+-know buffer from start of board to grid
+
+
+
+A = 1 [cos θ1  sin θ1]   b = |r1|   X = |x|
+    2 [cos θ2  sin θ2]       |r2|       |y|
+
+solve for x:
+-Adject of A and Determinant of A
+Together: A Inv = Adjunt of A / Determinant of A
+
+x=((st2*r1-st1*r2)/d);
+y=((-ct2*r1+ct1*r2)/d);
+
+
+
+x y  r
+2 3  8
+4 5  7
+
+det = -2
+
+Adj = 
+5 -3
+-4 2
