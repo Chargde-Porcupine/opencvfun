@@ -13,6 +13,7 @@ cv::Point intersect(float ftheata, float frho, float stheata, float srho)
     return cv::Point((sinf(stheata) * frho - sinf(ftheata) * srho) / determinant, (-1 * cosf(stheata) * frho + cosf(ftheata) * srho) / determinant);
 }
 
+
 int main()
 {
     cv::Mat sourceImg;
@@ -30,7 +31,7 @@ int main()
     cv::Mat cannied;
     cv::Canny(rected, cannied, 50, 200, 3);
     vector<cv::Vec2f> lines;
-    vector<int> horizlines, verticlines;
+    vector<int> horizlines, verticlines, ybounds, xbounds;
     // horizontal lines have theta of 0 or 180 ~
     // vertical lines have theta of 90 ~
     // lets give an error of 10 deg
@@ -41,8 +42,11 @@ int main()
         cv::Point pt1, pt2;
         if(abs(0-theta) <= 0.1){
             horizlines.push_back(i);
+            ybounds.push_back((rho-500*cosf(theta))/sinf(theta));
+            
         } else if(abs(CV_PI/2 - theta) <= 0.1){
             verticlines.push_back(i);
+            xbounds.push_back((rho-500*sinf(theta))/cosf(theta));
         }
     }
     for (size_t i = 0; i < horizlines.size(); i++)
@@ -71,6 +75,8 @@ int main()
         int radius = c[2];
         circle(sourceImg, center, radius, cv::Scalar(0, 100, 100), 3, cv::LINE_AA);
     }
+
+    //do something with x and y bounds idk
 
     cv::imshow("Go boardUnmodified", sourceImg);
 
